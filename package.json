@@ -1,0 +1,43 @@
+{
+  "name": "kell",
+  "version": "0.0.0",
+  "description": "symbol processing language",
+  "main": "lib/index",
+  "author": "Frderik Batuna <gobi301@gmail.com>",
+  "license": "MIT",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "scripts": {
+    "flow": "flow check .",
+    "precommit": "flow check . && npm test",
+    "test": "mocha test/*.spec.js",
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "lodash": "4.17.4",
+    "next": "beta",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-plugin-transform-builtin-extend": "1.1.2",
+    "babel-plugin-transform-class-properties": "^6.23.0",
+    "babel-plugin-transform-flow-strip-types": "6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.2.2",
+    "babel-preset-latest": "^6.24.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "chai": "^4.0.2",
+    "flow-bin": "^0.48.0",
+    "flow-typed": "^2.1.2",
+    "husky": "^0.13.3",
+    "mocha": "^3.4.2"
+  }
+}
