@@ -1,11 +1,10 @@
 // @flow
 
-import { AtomC } from '../src/components/Atom';
-import { Atom } from '../src';
+import Link from 'next/link';
 
 export default () => (
   <div>
-    <h1>Welcome to next.js!</h1>
-    {AtomC(new Atom('hello'))}
+    <h1>Welcome kell!</h1>
+    <Link href="/repl"><a>repl</a></Link>
   </div>
 )

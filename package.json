@@ -38,6 +38,7 @@
     "flow-bin": "^0.48.0",
     "flow-typed": "^2.1.2",
     "husky": "^0.13.3",
-    "mocha": "^3.4.2"
+    "mocha": "^3.4.2",
+    "nearley-make": "^1.0.0"
   }
 }

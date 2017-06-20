@@ -182,6 +182,9 @@ export class Rules {
     }
     return subbing;
   }
+  add(rule: Rule): Rules {
+    return new Rules(this.rules.concat([rule]));
+  }
   toString() {
     return this.rules.map(rule => rule.toString()).join(';\n');
   }
@@ -195,3 +198,15 @@ export class UnbounfReleasesError extends Error {
     this.releases = releases;
   }
 }
+
+import nearleyMake from "nearley-make";
+import fs from 'fs';
+const grammar = fs.readFileSync('src/syntax.ne', 'utf-8');
+export function parse(text: string): Term | Rules {
+  const parser = nearleyMake(grammar, { require });
+  parser.feed(text);
+  if (parser.results.length === 0) throw new Error('unecpected end of input');
+  if (parser.results.length > 1) throw new Error('ambigous syntax');
+  return parser.results[0];
+}
+export const s = (template: string[], ...expressions: string[]) => parse(template.reduce((accumulator, part, i) => accumulator + expressions[i - 1] + part));
