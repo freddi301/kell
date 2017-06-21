@@ -1,8 +1,7 @@
-export default `
 @builtin "whitespace.ne"
 
 @{%
-  const { atom, capture, release, rules, rule, patternRecord, bodyRecord } = require('./index.js');
+  const { atom, capture, release, record, rules, rule, patternRecord, bodyRecord } = require('./index.js');
 %}
 
 MAIN ->
@@ -14,7 +13,7 @@ RULES ->
 | RULE {% d => rules([d[0]]) %}
 
 RULE ->
-  PATTERN_LEAF _ "→" _ BODY_LEAF _ ";" {% d => rule(d[0], d[4]) %}
+  PATTERN_LEAF _ "=" _ BODY_LEAF _ ";" {% d => rule(d[0], d[4]) %}
 
 PATTERN_LEAF ->
   ATOM {% d => d[0] %}
@@ -64,14 +63,13 @@ RECORD_LEAF ->
   LEAF _ ":" _ LEAF {% d => [d[0], d[4]] %}
 
 CAPTURE ->
-  "©" QUALIFIER {% d => capture(d[1]) %}
+  "@" QUALIFIER {% d => capture(d[1]) %}
 
 RELEASE ->
-  "®" QUALIFIER {% d => release(d[1]) %}
+  "#" QUALIFIER {% d => release(d[1]) %}
 
 ATOM ->
   QUALIFIER {% d => atom(d[0]) %}
 
 QUALIFIER ->
-  [^\\s\\n,:;{}®©]:+ {% d => d[0].join('') %}
-`;
+  [^\s\n,:;{}@#=]:+ {% d => d[0].join('') %}

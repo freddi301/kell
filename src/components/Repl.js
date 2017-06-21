@@ -17,7 +17,7 @@ export class Repl extends React.Component {
       {output ? GuiInterpreter({ ast: output }) : null}
     </div>
   }
-  setRules = e => this.setState({ rules: e.target.value });
-  setInput = e => this.setState({ input: e.target.value });
-  setOutput = output => this.setState({ output });
+  setRules = (e: any) => this.setState({ rules: e.target.value });
+  setInput = (e: any) => this.setState({ input: e.target.value });
+  setOutput = (output: any) => this.setState({ output });
 }

@@ -51,7 +51,7 @@ export class Capture {
     this.name = name;
   }
   matches(term: Term): Map<string, Term> { return new Map([[this.name, term]]); }
-  toString() { return `©${this.name}`; }
+  toString() { return `@${this.name}`; }
 }
 export const capture = (name: string) => new Capture(name);
 
@@ -65,7 +65,7 @@ export class Release {
     if (term) return term;
     throw new Error('release not in scope');
   }
-  toString() { return `®${this.name}`; }
+  toString() { return `#${this.name}`; }
 }
 export const release = (name: string) => new Release(name);
 
@@ -135,7 +135,7 @@ export class Rule {
     Rule.checkUnboundReleases(pattern, body);
   }
   toString() {
-    return `${this.pattern.toString()} → ${this.body.toString()}`
+    return `${this.pattern.toString()} = ${this.body.toString()}`
   }
   static checkUnboundReleases(pattern: PatternTerm, body: BodyTerm) {
     const params: Set<string> = new Set;
@@ -166,7 +166,7 @@ export class Rules {
       if (matched) return { scope: matched, rule };
     }
   }
-  subrec(scope: Map<string, Term>, term: Term): Term {
+  subrec(term: Term, scope: Map<string, Term> = new Map): Term {
     let subbing: Term = term;
     while (true) {
       const matched = this.match(subbing);
@@ -175,7 +175,7 @@ export class Rules {
         if (isEqual(subbing, subbed)) return subbing;
         subbing = subbed;
       } else if (subbing instanceof Record) {
-        const subbed = record(Array.from(subbing.struct.entries()).map(([key, value]) => [this.subrec(scope, key), this.subrec(scope, value)]));
+        const subbed = record(Array.from(subbing.struct.entries()).map(([key, value]) => [this.subrec(key, scope), this.subrec(value, scope)]));
         if (isEqual(subbing, subbed)) return subbing;
         subbing = subbed;
       } else return subbing;
@@ -206,7 +206,7 @@ export function parse(text: string): Term | Rules {
   const parser = nearleyMake(grammar, { require });
   parser.feed(text);
   if (parser.results.length === 0) throw new Error('unecpected end of input');
-  if (parser.results.length > 1) throw new Error('ambigous syntax');
+  if (parser.results.length > 1) { console.dir(parser.results, { colors: true, depth: null }); throw new Error('ambigous syntax'); }
   return parser.results[0];
 }
 export const s = (template: string[], ...expressions: string[]) => parse(template.reduce((accumulator, part, i) => accumulator + expressions[i - 1] + part));

@@ -26,13 +26,13 @@ describe('kell', () => {
       const program = rules([
         rule(atom('nocapturereplace'), atom('replaced'))
       ]);
-      expect(program.subrec(new Map, atom('nocapturereplace'))).to.deep.equal(atom('replaced'));
+      expect(program.subrec(atom('nocapturereplace'))).to.deep.equal(atom('replaced'));
     });
     it('does simple capture replace', () => {
       const program = rules([
         rule(capture('x'), release('x'))
       ])
-      expect(program.subrec(new Map, atom('identity'))).to.deep.equal(atom('identity'));
+      expect(program.subrec(atom('identity'))).to.deep.equal(atom('identity'));
     });
   });
 });

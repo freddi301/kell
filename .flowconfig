@@ -1,5 +1,8 @@
 [ignore]
 
+<PROJECT_ROOT>/node_modules/babel-plugin-transform-react-remove-prop-types/
+<PROJECT_ROOT>/node_modules/mitt/
+
 [include]
 
 [libs]

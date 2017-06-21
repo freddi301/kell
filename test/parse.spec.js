@@ -6,9 +6,9 @@ import { rule, rules, atom, record, bodyRecord, patternRecord, capture, release,
 describe('text parser', () => {
   it('works', () => {
     expect(s`
-      a → b;
-      ©a → ®a;
-      { a: b } → c;
+      a = b;
+      @a = #a;
+      { a: b } = c;
     `).to.deep.equal(rules([
       rule(atom('a'), atom('b')),
       rule(capture('a'), release('a')),

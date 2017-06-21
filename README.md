@@ -1,3 +1,4 @@
 ## TODO
 
-- [ ] add webpack text loader -> replace fs to read syntax file -> replace nearley-make module -> complete repl
+- [ ] make repl for web
+- [ ] add syntax sugars for juxt (left/right associative) and tuple

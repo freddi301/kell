@@ -1,0 +1,6 @@
+
+
+
+{ op: not, arg: { type: boolean, value: true } } = { type: boolean, value: false };
+{ op: not, arg: { type: boolean, value: false } } = { type: boolean, value: true };
+
